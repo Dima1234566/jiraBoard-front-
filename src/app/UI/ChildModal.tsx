@@ -8,7 +8,11 @@ import axios from "axios";
 
 interface ChildModalProps {
   open: boolean;
-  data: any;
+  data: {
+    id: string;
+    title: string;
+    description: string;
+  } | null;
   handleClose: () => void;
   onCloseFirstModal: () => void;
   setSuccessState: (state: boolean) => void;

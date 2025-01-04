@@ -150,15 +150,19 @@ export default function Board({ data }: BoardProps) {
       setLoading(false);
     }
   };
-
   const CardComponent = ({ card }: { card: Card }) => {
+    const ref = React.useRef<HTMLDivElement>(null);
+
     const [, drag] = useDrag({
       type: ItemTypes.CARD,
       item: { id: card._id, state: card.state },
     });
 
+    // Поєднуємо ref із drag
+    drag(ref);
+
     return (
-      <div ref={drag}>
+      <div ref={ref}>
         <Card
           onClick={() => openEditModal(card)}
           variant="outlined"
@@ -174,6 +178,8 @@ export default function Board({ data }: BoardProps) {
   };
 
   const BoardColumn = ({ title, state }: { title: string; state: string }) => {
+    const ref = React.useRef<HTMLDivElement>(null);
+
     const [, drop] = useDrop({
       accept: ItemTypes.CARD,
       drop: (item: { id: string; state: string }) => {
@@ -183,10 +189,10 @@ export default function Board({ data }: BoardProps) {
         }
       },
     });
-
+    drop(ref);
     return (
       <Grid size={{ xs: 2, sm: 4, md: 3.8 }}>
-        <div ref={drop}>
+        <div ref={ref}>
           <Item>
             <Typography variant="h6">{title}</Typography>
             <Box

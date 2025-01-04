@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useState, useEffect, Fragment } from "react";
-import Board, { Card } from "../components/Board";
+import { Card } from "../components/Board";
 import { ChildModal } from "./ChildModal";
 import { styleModal } from "../utils/styles";
 import { CloseChildModal } from "./CloseChildModal";
@@ -35,7 +35,11 @@ export default function EditModal({
   const [descript, setDescript] = useState<string>("");
   const [cardName, setCardName] = useState<string>("");
   const [openChildModal, setOpenChildModal] = useState<boolean>(false);
-  const [dataToSend, setDataToSend] = useState<any>({});
+  const [dataToSend, setDataToSend] = useState<{
+    id: string;
+    title: string;
+    description: string;
+  } | null>(null);
   const [openCloseChildModal, setOpenCloseChildModal] =
     useState<boolean>(false);
   const [cardToDelete, setCardToDelete] = useState<string>("");
@@ -111,7 +115,7 @@ export default function EditModal({
     try {
       await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}/card`, {
         id: card?._id,
-        board: data._id,
+        board: data === null ? null : data._id,
       });
       setSuccessState(true);
       setToastMessage("Card swapped successfully");
