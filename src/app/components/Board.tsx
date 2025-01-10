@@ -64,6 +64,8 @@ export default function Board({ data }: BoardProps) {
           setCards(response.data);
         };
         fetchCards();
+      } else {
+        setCards([]);
       }
     } catch (error) {
       console.error(error);
@@ -158,7 +160,6 @@ export default function Board({ data }: BoardProps) {
       item: { id: card._id, state: card.state },
     });
 
-    // Поєднуємо ref із drag
     drag(ref);
 
     return (
@@ -223,7 +224,6 @@ export default function Board({ data }: BoardProps) {
         justifyContent: "center",
         flexDirection: "column",
         gap: "30px",
-        marginTop: "30px",
       }}
     >
       {data && <h1>Board: {data.name}</h1>}

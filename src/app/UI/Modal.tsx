@@ -51,6 +51,11 @@ export default function EditModal({
   const [options, setOptions] = useState<readonly Board[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<Board | null>(null);
+  const [page, setPage] = useState<number>(1);
+  const [inputValue, setInputValue] = useState<string>("");
+  const [hasMore, setHasMore] = useState<boolean>(true);
+
+  const size = 6;
 
   useEffect(() => {
     if (card) {
@@ -83,14 +88,23 @@ export default function EditModal({
     onClose();
   };
 
-  const handleSearch = async () => {
+  const handleSearch = async (searchedName?: string) => {
     setLoading(true);
-
+    setBoardOpen(true);
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/board`
+        `${process.env.NEXT_PUBLIC_API_URL}/board/?name=${searchedName}&page=${page}&size=${size}`
       );
-      setOptions(response.data);
+      if (response) {
+        setOptions((prevOption) =>
+          page === 1
+            ? response.data.data
+            : [...prevOption, ...response.data.data]
+        );
+        if (response !== null && response.data.data > 0) {
+          setHasMore(true);
+        }
+      }
     } catch (error) {
       setErrorState(true);
       console.error(error);
@@ -102,9 +116,13 @@ export default function EditModal({
     }
   };
 
-  const handleOpen = () => {
-    handleSearch();
-    setBoardOpen(true);
+  const handleScroll = (e: React.UIEvent<HTMLElement>) => {
+    const list = e.currentTarget;
+    if (list.scrollTop + list.clientHeight >= list.scrollHeight) {
+      if (!loading && hasMore) {
+        setPage((prevPage) => prevPage + 1);
+      }
+    }
   };
 
   const handleClose = () => {
@@ -258,13 +276,18 @@ export default function EditModal({
           <Autocomplete
             sx={{ width: 400, marginTop: "7px" }}
             open={boardOpen}
-            onOpen={handleOpen}
+            onOpen={() => handleSearch(inputValue)}
             onClose={handleClose}
             isOptionEqualToValue={(option, value) => option.name === value.name}
             getOptionLabel={(option) => option.name}
             onChange={(_, value) => setData(value)}
+            onInputChange={(_, value) => setInputValue(value)}
             options={options}
             loading={loading}
+            ListboxProps={{
+              onScroll: handleScroll,
+              style: { maxHeight: 200, overflow: "auto" },
+            }}
             renderInput={(params) => (
               <TextField
                 {...params}

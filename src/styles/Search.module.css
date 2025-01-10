@@ -1,7 +1,25 @@
 .hero {
-  margin-top: 20px;
   gap: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.logoWrapper {
+  position: absolute;
+  left: 40px;
+  top: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-right: 10px; /* Adds a small margin between logo and search field */
+}
+
+.logo img {
+  max-width: 24px; /* Ensures logo stays within desired size */
+  max-height: 24px; /* Ensures logo stays within desired size */
 }

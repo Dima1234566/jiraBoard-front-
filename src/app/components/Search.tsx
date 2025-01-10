@@ -12,6 +12,9 @@ import { style } from "../utils/styles";
 import { Board } from "../page";
 import Backdrop from "@mui/material/Backdrop";
 import Alert from "@mui/material/Alert";
+import GoogleIcon from "@mui/icons-material/Google";
+import logo from "../../../public/logo.png";
+import Image from "next/image";
 
 interface Data {
   setData: (value: Board | null) => void;
@@ -27,15 +30,34 @@ export default function Search({ setData }: Data) {
   const [message, setMessage] = useState<string>("");
   const [errorState, setErrorState] = useState<boolean>(false);
   const [successState, setSuccessState] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [inputValue, setInputValue] = useState<string>("");
+  const [hasMore, setHasMore] = useState<boolean>(true);
 
-  const handleSearch = async () => {
+  const size = 6;
+
+  const handleSearch = async (startPage: number, searchedName?: string) => {
     setLoading(true);
-
+    setOpen(true);
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/board`
+        `${process.env.NEXT_PUBLIC_API_URL}/board/?name=${searchedName}&page=${startPage}&size=${size}`
       );
-      setOptions(response.data);
+      if (searchedName && searchedName?.length >= 3) {
+        setOptions(response.data.data);
+      } else if (response.data) {
+        const newOptions = response.data.data.filter(
+          (item: Board) => !options.some((option) => option._id === item._id)
+        );
+        console.log(newOptions);
+        setOptions((prevOptions) => [...prevOptions, ...newOptions]);
+
+        if (response.data.data.length < size) {
+          setHasMore(false);
+        } else {
+          setHasMore(true);
+        }
+      }
     } catch (error) {
       setErrorState(true);
       console.error(error);
@@ -45,11 +67,6 @@ export default function Search({ setData }: Data) {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleOpen = () => {
-    handleSearch();
-    setOpen(true);
   };
 
   const handleClose = () => {
@@ -65,6 +82,22 @@ export default function Search({ setData }: Data) {
     setNameInput("");
     setMessage("");
     setError(false);
+  };
+
+  const handleScroll = (
+    e: React.UIEvent<HTMLElement>,
+    load: (page: number, searchString: string) => void
+  ) => {
+    const list = e.currentTarget;
+    if (list.scrollTop + list.clientHeight >= list.scrollHeight) {
+      if (!loading && hasMore) {
+        setPage((prevPage) => {
+          const nextPage = prevPage + 1;
+          load(nextPage, "");
+          return nextPage;
+        });
+      }
+    }
   };
 
   const addBoard = async () => {
@@ -106,18 +139,33 @@ export default function Search({ setData }: Data) {
   };
 
   return (
-    <>
+    <div style={{ padding: "40px" }}>
+      <a>
+        <div className={styles.logoWrapper}>
+          <Image src={logo} alt="Logo" width={55} height={55} />
+        </div>
+      </a>
       <div className={styles.hero}>
         <Autocomplete
           sx={{ width: 700 }}
           open={open}
-          onOpen={handleOpen}
+          onOpen={() => handleSearch(page, inputValue)}
           onClose={handleClose}
           isOptionEqualToValue={(option, value) => option.name === value.name}
           getOptionLabel={(option) => option.name}
-          onChange={(_, value) => setData(value)}
+          onChange={(_, value) => setData(value ? value : null)}
+          onInputChange={(_, value) => setInputValue(value)}
           options={options}
           loading={loading}
+          ListboxProps={{
+            onScroll: (e) => handleScroll(e, handleSearch),
+            style: { maxHeight: 200, overflow: "auto" },
+          }}
+          renderOption={(props, option) => (
+            <li {...props} key={Math.floor(Math.random() * 1000)}>
+              {option.name}
+            </li>
+          )}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -145,7 +193,12 @@ export default function Search({ setData }: Data) {
             variant="contained"
             disableElevation
           >
-            Create Board{" "}
+            Create Board
+          </Button>
+        </div>
+        <div>
+          <Button endIcon={<GoogleIcon />} variant="outlined" disableElevation>
+            Login
           </Button>
         </div>
         <div>
@@ -186,8 +239,7 @@ export default function Search({ setData }: Data) {
       <div
         style={{
           width: "40%",
-          margin: " 0 auto",
-          paddingTop: "30px",
+          margin: "0 auto",
         }}
       >
         {errorState && (
@@ -202,6 +254,6 @@ export default function Search({ setData }: Data) {
           </Alert>
         )}
       </div>
-    </>
+    </div>
   );
 }
