@@ -197,9 +197,15 @@ export default function Search({ setData }: Data) {
           </Button>
         </div>
         <div>
-          <Button endIcon={<GoogleIcon />} variant="outlined" disableElevation>
-            Login
-          </Button>
+          <a href={`${process.env.NEXT_PUBLIC_API_URL}/google/login`}>
+            <Button
+              endIcon={<GoogleIcon />}
+              variant="outlined"
+              disableElevation
+            >
+              Login
+            </Button>
+          </a>
         </div>
         <div>
           <Modal
