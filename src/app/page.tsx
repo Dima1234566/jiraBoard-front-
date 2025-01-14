@@ -1,11 +1,13 @@
 "use client";
+
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import Search from "./components/Search";
 import styles from "@/styles/page.module.css";
 import Board from "./components/Board";
 import Footer from "./components/Footer";
-import { useSearchParams } from "next/navigation";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 export interface Board {
   _id: string;
@@ -14,12 +16,16 @@ export interface Board {
   updatedAt?: string;
 }
 
-export default function Home() {
+export default dynamic(() => Promise.resolve(Home), { ssr: false });
+
+function Home() {
   const [data, setData] = useState<Board | null>(null);
-  const searchParams = useSearchParams(); // Оголошення об'єкта searchParams
+
+  const router = useRouter();
+  const { query } = router;
 
   useEffect(() => {
-    const googleId = searchParams.get("token"); // Коректний доступ до параметра
+    const googleId = query.token;
     if (googleId) {
       const fetchUsers = async () => {
         try {
@@ -33,7 +39,7 @@ export default function Home() {
       };
       fetchUsers();
     }
-  }, [searchParams]);
+  }, [query]);
 
   return (
     <div className={styles.container}>
