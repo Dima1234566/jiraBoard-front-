@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Board as BoardType } from "../page";
+import { Board as BoardType } from "./Main";
 import { useDrag, useDrop, DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Box from "@mui/material/Box";
