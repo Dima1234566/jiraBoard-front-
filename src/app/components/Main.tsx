@@ -2,7 +2,7 @@
 import Button from "@mui/material/Button";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import GoogleIcon from "@mui/icons-material/Google";
 import Alert from "@mui/material/Alert";
 import Footer from "./Footer";
@@ -16,7 +16,7 @@ export interface Board {
   updatedAt?: string;
 }
 
-function Main() {
+function MainContent() {
   const [error, setError] = useState<boolean>(false);
   const [login, setLogin] = useState<boolean>(false);
   const [data, setData] = useState<Board | null>(null);
@@ -25,7 +25,6 @@ function Main() {
 
   useEffect(() => {
     const googleId = searchParams.get("token");
-    console.log(googleId);
     if (googleId !== null) {
       const fetchUsers = async () => {
         try {
@@ -43,7 +42,7 @@ function Main() {
       };
       fetchUsers();
     }
-  }, []);
+  }, [searchParams]);
 
   return (
     <>
@@ -88,5 +87,10 @@ function Main() {
     </>
   );
 }
-
-export default Main;
+export default function Main() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <MainContent />
+    </Suspense>
+  );
+}

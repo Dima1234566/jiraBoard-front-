@@ -11,9 +11,9 @@ import { styleModal } from "../utils/styles";
 import { CloseChildModal } from "./CloseChildModal";
 import { DeleteModal } from "./DeleteModal";
 import Autocomplete from "@mui/material/Autocomplete";
-import { Board } from "../page";
 import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
+import { Board } from "../components/Main";
 
 interface PropModal {
   card: Card | null;
