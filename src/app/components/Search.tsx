@@ -14,6 +14,8 @@ import Alert from "@mui/material/Alert";
 import logo from "../../../public/logo.png";
 import Image from "next/image";
 import { Board } from "./Main";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import Tooltip from "@mui/material/Tooltip";
 
 interface Data {
   setData: (value: Board | null) => void;
@@ -75,6 +77,11 @@ export default function Search({ setData }: Data) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    window.location.reload();
   };
 
   const handleClose = () => {
@@ -232,7 +239,15 @@ export default function Search({ setData }: Data) {
             </Button>
           </div>
         </div>
-        <div style={{}}>Name: {user !== null ? user.firstName : ""} </div>
+        <div style={{}}>Name: {user !== null ? user.firstName : ""}</div>
+        <div>
+          <Tooltip title="Logout">
+            <ExitToAppIcon
+              sx={{ color: "pink", cursor: "pointer" }}
+              onClick={() => handleLogout()}
+            />
+          </Tooltip>
+        </div>
         <div>
           <Backdrop
             sx={(theme) => ({

@@ -34,6 +34,9 @@ function MainContent() {
           setError(false);
           setLogin(true);
           localStorage.setItem("user", JSON.stringify(response.data));
+          const url = new URL(window.location.href);
+          url.searchParams.delete("token");
+          window.history.replaceState({}, document.title, url.toString());
         } catch (error) {
           setError(true);
           setLogin(false);
@@ -41,6 +44,12 @@ function MainContent() {
         }
       };
       fetchUsers();
+    } else {
+      const user = localStorage.getItem("user");
+
+      if (user) {
+        setLogin(true);
+      }
     }
   }, [searchParams]);
 

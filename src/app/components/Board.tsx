@@ -191,6 +191,7 @@ export default function Board({ data }: BoardProps) {
       },
     });
     drop(ref);
+
     return (
       <Grid size={{ xs: 2, sm: 4, md: 3.8 }}>
         <div ref={ref}>

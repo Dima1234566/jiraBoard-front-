@@ -18,6 +18,7 @@ export function DeleteBoard({ open, data, handleClose }: DeleteBoard) {
       await axios.delete(
         `${process.env.NEXT_PUBLIC_API_URL}/delete-board/${data}`
       );
+      window.location.reload();
     } catch (error) {
       console.error(error);
     } finally {
