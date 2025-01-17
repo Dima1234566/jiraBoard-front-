@@ -50,7 +50,7 @@ export default function Search({ setData }: Data) {
     setOpen(true);
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/board/?name=${searchedName}&page=${startPage}&size=${size}&googleId=${user?.googleId}`
+        `${process.env.NEXT_PUBLIC_API_URL}/my-boards/${user?.googleId}/?name=${searchedName}&page=${startPage}&size=${size}`
       );
       if (searchedName && searchedName?.length >= 3) {
         setOptions(response.data.data);
