@@ -67,7 +67,7 @@ function MainContent() {
           }}
         >
           <h1>Welcome to board </h1>
-          <div>
+          <div style={{ boxShadow: "0 8px 12px rgba(0, 0, 0, 0.3)" }}>
             <a href={`${process.env.NEXT_PUBLIC_API_URL}/google/login`}>
               <Button
                 endIcon={<GoogleIcon />}
