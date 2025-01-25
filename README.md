@@ -58,7 +58,8 @@ This is the frontend part of the application, built with **Next.js** and **React
 ## **Setup and Installation**
 
 
- Clone the repository:
+
+  Clone the repository:
    ```bash
    git clone https://github.com/your-repo/app_front.git
    cd app_front
