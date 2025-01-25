@@ -56,8 +56,7 @@ This is the frontend part of the application, built with **Next.js** and **React
 - [ESLint Config for Next.js](https://nextjs.org/docs/basic-features/eslint) - Preconfigured ESLint rules for Next.js.
 
 ## **Setup and Installation**
-
-1. Clone the repository:
+ Clone the repository:
    ```bash
    git clone https://github.com/your-repo/app_front.git
    cd app_front
