@@ -58,23 +58,23 @@ This is the frontend part of the application, built with **Next.js** and **React
 ## **Setup and Installation**
 
 
-  Clone the repository:
+ 1. Clone the repository:
    ```bash
    git clone https://github.com/your-repo/app_front.git
    cd app_front
 
-  Install dependencies:
+ 2. Install dependencies:
 
     npm install
 
-Run the development server:
+3.Run the development server:
  
     npm run dev
 
-Build for production:
+4.Build for production:
 
     npm run build
 
-Start the production server:
+5.Start the production server:
 
     npm start
