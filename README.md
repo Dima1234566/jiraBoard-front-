@@ -63,17 +63,17 @@ This is the frontend part of the application, built with **Next.js** and **React
    cd app_front
 
 Install dependencies:
-
+ ```bash
 npm install
 
 Run the development server:
-
+ ```bash
 npm run dev
 
 Build for production:
-
+ ```bash
 npm run build
 
 Start the production server:
-
+ ```bash
 npm start
