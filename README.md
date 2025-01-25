@@ -20,17 +20,44 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+# Frontend Application
 
-To learn more about Next.js, take a look at the following resources:
+This is the frontend part of the application, built with **Next.js** and **React**. It uses **Material-UI** for UI components and supports drag-and-drop functionality via **React DnD**.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## **Technologies Used**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### **Core Frameworks**
+- [Next.js](https://nextjs.org/) - React framework for server-side rendering and static site generation.
+- [React](https://reactjs.org/) - Library for building user interfaces.
 
-## Deploy on Vercel
+### **UI and Styling**
+- [MUI (Material-UI)](https://mui.com/) - Component library based on Material Design.
+  - [@mui/material](https://mui.com/material-ui/getting-started/overview/) - Core Material-UI components.
+  - [@mui/icons-material](https://mui.com/material-ui/material-icons/) - Material Design icons.
+  - [@emotion/react](https://emotion.sh/docs/introduction) - CSS-in-JS library.
+  - [@emotion/styled](https://emotion.sh/docs/styled) - Styled components.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### **API Integration**
+- [Axios](https://axios-http.com/) - Promise-based HTTP client for making API requests.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### **Drag-and-Drop**
+- [React DnD](https://react-dnd.github.io/react-dnd/about) - API for drag-and-drop functionality.
+- [React DnD HTML5 Backend](https://react-dnd.github.io/react-dnd/docs/backends/html5) - HTML5 backend for drag-and-drop.
+
+### **Additional Libraries**
+- [React Content Loader](https://github.com/danilowoz/react-content-loader) - Skeleton loaders for better user experience.
+
+### **Routing**
+- [React Router DOM](https://reactrouter.com/) - Library for routing in React applications.
+
+### **Development Tools**
+- [TypeScript](https://www.typescriptlang.org/) - Typed superset of JavaScript.
+- [ESLint](https://eslint.org/) - JavaScript/TypeScript linter.
+- [ESLint Config for Next.js](https://nextjs.org/docs/basic-features/eslint) - Preconfigured ESLint rules for Next.js.
+
+## **Setup and Installation**
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/app_front.git
+   cd app_front
