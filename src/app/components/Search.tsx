@@ -170,7 +170,13 @@ export default function Search({ setData }: Data) {
   }, []);
 
   return (
-    <div style={{ padding: "40px" }}>
+    <div
+      style={{
+        padding: "40px",
+        boxShadow: "0 4px 8px 4px rgba(0, 0, 0, 0.4)",
+        marginBottom: "10px",
+      }}
+    >
       <div
         style={{
           display: "flex",

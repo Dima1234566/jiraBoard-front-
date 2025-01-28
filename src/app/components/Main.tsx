@@ -58,7 +58,8 @@ function MainContent() {
       {!login && (
         <div
           style={{
-            marginTop: "100px",
+            height: "100vh",
+            background: "linear-gradient(135deg, #e8f5e9, #c8e6c9, #bdbdbd)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -67,6 +68,16 @@ function MainContent() {
           }}
         >
           <h1>Welcome to board </h1>
+          <div style={{ width: 700, textAlign: "center" }}>
+            <h4 style={{ fontWeight: "400", lineHeight: "1.6rem" }}>
+              Simplify your task management and boost productivity with Daily
+              board, the intuitive platform for creating, organizing, and
+              tracking your projects. Whether you are managing personal tasks or
+              leading a collaborative team, our tool offers the flexibility and
+              features you need to succeed.
+            </h4>
+          </div>
+
           <div style={{ boxShadow: "0 8px 12px rgba(0, 0, 0, 0.3)" }}>
             <a href={`${process.env.NEXT_PUBLIC_API_URL}/google/login`}>
               <Button

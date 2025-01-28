@@ -220,6 +220,7 @@ export default function Board({ data }: BoardProps) {
   return (
     <div
       style={{
+        background: "linear-gradient(135deg, #e8f5e9, #c8e6c9, #bdbdbd)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -249,7 +250,6 @@ export default function Board({ data }: BoardProps) {
         sx={{
           flexGrow: 1,
           padding: "40px",
-          backgroundColor: "#f6f7f8",
           width: "100%",
         }}
       >
